@@ -11,6 +11,50 @@
 
 </head>
 <body>
+<div>
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <template>
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li :class="{active: selectedTab === 'tab1'}" @click="selectedTab = 'tab1'">主页</li>
+                        <li :class="{active: selectedTab === 'tab2'}" @click="selectedTab = 'tab2'">程序</li>
+                        <li :class="{active: selectedTab === 'tab3'}" @click="selectedTab = 'tab3'">设计</li>
+                        <li :class="{active: selectedTab === 'tab4'}" @click="selectedTab = 'tab4'">购物</li>
+                    </ul>
+
+                    <div v-show="selectedTab === 'tab1'">内容1</div>
+                    <div v-show="selectedTab === 'tab2'">内容2</div>
+                    <div v-show="selectedTab === 'tab3'">内容3</div>
+                    <div v-show="selectedTab === 'tab4'">内容4</div>
+                </template>
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" class="form-control" placeholder="搜索" aria-label="搜索"/>
+                </form>
+                <div class="col-md-3 text-end">
+                    <button type="button" class="btn btn-outline-primary me-2">登录</button>
+                    <button type="button" class="btn btn-primary">注册</button>
+                </div>
+                <div class="dropdown text-end" style="display: none">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="img/avatar.png" alt="MDO" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small" style="">
+                        <li><a class="dropdown-item" href="#">新项目...</a></li>
+                        <li><a class="dropdown-item" href="#">设置</a></li>
+                        <li><a class="dropdown-item" href="#">轮廓</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">登出</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;">
         <a href="/" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
             <svg class="bi pe-none" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
