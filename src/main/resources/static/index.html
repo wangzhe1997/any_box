@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Any Box首页</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-utilities.min.css">
+
+</head>
+<body>
+    <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;">
+        <a href="/" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
+            <svg class="bi pe-none" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <span class="visually-hidden" _msttexthash="7266922" _msthash="25">仅图标</span>
+        </a>
+        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+            <li class="nav-item">
+                <a href="#" class="nav-link active py-3 border-bottom rounded-0" aria-current="page" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="家" data-bs-original-title="Home" _mstaria-label="43979" _msthash="26">
+                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="家" _mstaria-label="43979" _mstHash="27"><use xlink:href="#home"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="挡泥板" data-bs-original-title="Dashboard" _mstaria-label="131222" _msthash="28">
+                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="挡泥板" _mstaria-label="131222" _mstHash="29"><use xlink:href="#speedometer2"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="订单" data-bs-original-title="Orders" _mstaria-label="78117" _msthash="30">
+                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="订单" _mstaria-label="78117" _mstHash="31"><use xlink:href="#table"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="产品" data-bs-original-title="Products" _mstaria-label="117832" _msthash="32">
+                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="产品" _mstaria-label="117832" _mstHash="33"><use xlink:href="#grid"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="客户" data-bs-original-title="Customers" _mstaria-label="139919" _msthash="34">
+                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="客户" _mstaria-label="139919" _mstHash="35"><use xlink:href="#people-circle"></use></svg>
+                </a>
+            </li>
+        </ul>
+        <div class="dropdown border-top">
+            <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="MDO" width="24" height="24" class="rounded-circle" _mstalt="33306" _msthash="36">
+            </a>
+            <ul class="dropdown-menu text-small shadow" style="" _mstvisible="0">
+                <li _mstvisible="1"><a class="dropdown-item" href="#" _msttexthash="10010260" _msthash="37" _mstvisible="2">新项目...</a></li>
+                <li _mstvisible="1"><a class="dropdown-item" href="#" _msttexthash="6648122" _msthash="38" _mstvisible="2">设置</a></li>
+                <li _mstvisible="1"><a class="dropdown-item" href="#" _msttexthash="5865938" _msthash="39" _mstvisible="2">轮廓</a></li>
+                <li _mstvisible="1"><hr class="dropdown-divider" _mstvisible="2"></li>
+                <li _mstvisible="1"><a class="dropdown-item" href="#" _msttexthash="4942665" _msthash="40" _mstvisible="2">登出</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="vue/vue.js"></script>
+<script>
+    module.exports ={
+        data() {
+            return {
+                selectedTab: 'tab1'
+            };
+        }
+    };
+</script>
+</body>
+</html>
