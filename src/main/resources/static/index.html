@@ -1,115 +1,394 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Any Box首页</title>
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="icon" type="image/png" href="own/image/tab.png">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-utilities.min.css">
+    <link rel="stylesheet" type="text/css" href="/own/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/own/css/login.css">
 
+    <script src="vue/vue.js"></script>
+    <script src="vue/axios/axios.min.js"></script>
 </head>
 <body>
-<div>
+<div id="index">
     <header class="p-3 mb-3 border-bottom">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <template>
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li :class="{active: selectedTab === 'tab1'}" @click="selectedTab = 'tab1'">主页</li>
-                        <li :class="{active: selectedTab === 'tab2'}" @click="selectedTab = 'tab2'">程序</li>
-                        <li :class="{active: selectedTab === 'tab3'}" @click="selectedTab = 'tab3'">设计</li>
-                        <li :class="{active: selectedTab === 'tab4'}" @click="selectedTab = 'tab4'">购物</li>
-                    </ul>
-
-                    <div v-show="selectedTab === 'tab1'">内容1</div>
-                    <div v-show="selectedTab === 'tab2'">内容2</div>
-                    <div v-show="selectedTab === 'tab3'">内容3</div>
-                    <div v-show="selectedTab === 'tab4'">内容4</div>
-                </template>
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control" placeholder="搜索" aria-label="搜索"/>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" id="tab-title">
+                    <li><a href="javascript:void(0)" class="nav-link px-2 link-dark"
+                           :class="{'link-secondary': tabId === 1}" @click="tabId = 1">主页</a>
+                    </li>
+                    <li><a href="javascript:void(0)" class="nav-link px-2 link-dark"
+                           :class="{'link-secondary': tabId ===2}" @click="tabId = 2">程序</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link px-2 link-dark"
+                           :class="{'link-secondary': tabId ===3}" @click="tabId = 3">设计</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link px-2 link-dark"
+                           :class="{'link-secondary': tabId ===4}" @click="tabId = 4">购物</a></li>
+                </ul>
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" id="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="search" class="form-control">
+                            <button class="search-btn">搜索</button>
+                        </div>
+                    </div>
                 </form>
-                <div class="col-md-3 text-end">
-                    <button type="button" class="btn btn-outline-primary me-2">登录</button>
-                    <button type="button" class="btn btn-primary">注册</button>
-                </div>
-                <div class="dropdown text-end" style="display: none">
+                <div class="col-md-3 text-end" id="dialog">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        <img src="img/avatar.png" alt="MDO" class="rounded-circle">
+                       data-bs-toggle="dropdown" aria-expanded="false"
+                       @click="checkLogin()">
+                        <img :src="avatar ? avatar : 'own/image/avatar.png'" alt="MDO" width="32" height="32"
+                             class="rounded-circle">
                     </a>
-                    <ul class="dropdown-menu text-small" style="">
-                        <li><a class="dropdown-item" href="#">新项目...</a></li>
+                    <ul v-show="showDropdown" class="dropdown-menu text-small shadow">
+                        <li><a class="dropdown-item" href="#">个人资料</a></li>
                         <li><a class="dropdown-item" href="#">设置</a></li>
-                        <li><a class="dropdown-item" href="#">轮廓</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">登出</a></li>
+                        <li><a class="dropdown-item" @click="logout">登出</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </header>
-
-    <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;">
-        <a href="/" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
-            <svg class="bi pe-none" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-            <span class="visually-hidden" _msttexthash="7266922" _msthash="25">仅图标</span>
-        </a>
-        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-            <li class="nav-item">
-                <a href="#" class="nav-link active py-3 border-bottom rounded-0" aria-current="page" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="家" data-bs-original-title="Home" _mstaria-label="43979" _msthash="26">
-                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="家" _mstaria-label="43979" _mstHash="27"><use xlink:href="#home"></use></svg>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="挡泥板" data-bs-original-title="Dashboard" _mstaria-label="131222" _msthash="28">
-                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="挡泥板" _mstaria-label="131222" _mstHash="29"><use xlink:href="#speedometer2"></use></svg>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="订单" data-bs-original-title="Orders" _mstaria-label="78117" _msthash="30">
-                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="订单" _mstaria-label="78117" _mstHash="31"><use xlink:href="#table"></use></svg>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="产品" data-bs-original-title="Products" _mstaria-label="117832" _msthash="32">
-                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="产品" _mstaria-label="117832" _mstHash="33"><use xlink:href="#grid"></use></svg>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="客户" data-bs-original-title="Customers" _mstaria-label="139919" _msthash="34">
-                    <svg class="bi pe-none" width="24" height="24" role="img" aria-label="客户" _mstaria-label="139919" _mstHash="35"><use xlink:href="#people-circle"></use></svg>
-                </a>
-            </li>
-        </ul>
-        <div class="dropdown border-top">
-            <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="MDO" width="24" height="24" class="rounded-circle" _mstalt="33306" _msthash="36">
-            </a>
-            <ul class="dropdown-menu text-small shadow" style="" _mstvisible="0">
-                <li _mstvisible="1"><a class="dropdown-item" href="#" _msttexthash="10010260" _msthash="37" _mstvisible="2">新项目...</a></li>
-                <li _mstvisible="1"><a class="dropdown-item" href="#" _msttexthash="6648122" _msthash="38" _mstvisible="2">设置</a></li>
-                <li _mstvisible="1"><a class="dropdown-item" href="#" _msttexthash="5865938" _msthash="39" _mstvisible="2">轮廓</a></li>
-                <li _mstvisible="1"><hr class="dropdown-divider" _mstvisible="2"></li>
-                <li _mstvisible="1"><a class="dropdown-item" href="#" _msttexthash="4942665" _msthash="40" _mstvisible="2">登出</a></li>
-            </ul>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center" id="main-content">
+        <div class="col" v-show="tabId===1">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                <div class="card-header py-3 text-bg-primary border-primary">
+                    <h4 class="my-0 fw-normal">标题1</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">价格1<small
+                            class="text-muted fw-light">/月</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>内容1</li>
+                    </ul>
+                    <button type="button" class="w-100 btn btn-lg btn-primary">已读</button>
+                </div>
+            </div>
+        </div>
+        <div class="col" v-show="tabId===2">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                <div class="card-header py-3 text-bg-primary border-primary">
+                    <h4 class="my-0 fw-normal">标题2</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">价格2<small
+                            class="text-muted fw-light">/月</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>内容2</li>
+                    </ul>
+                    <button type="button" class="w-100 btn btn-lg btn-primary">已读</button>
+                </div>
+            </div>
+        </div>
+        <div class="col" v-show="tabId===3">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                <div class="card-header py-3 text-bg-primary border-primary">
+                    <h4 class="my-0 fw-normal">标题2</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">价格3<small
+                            class="text-muted fw-light">/月</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>内容3</li>
+                    </ul>
+                    <button type="button" class="w-100 btn btn-lg btn-primary">已读</button>
+                </div>
+            </div>
+        </div>
+        <div class="col" v-show="tabId===4">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                <div class="card-header py-3 text-bg-primary border-primary">
+                    <h4 class="my-0 fw-normal">标题4</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">价格4<small
+                            class="text-muted fw-light">/月</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>内容4</li>
+                    </ul>
+                    <button type="button" class="w-100 btn btn-lg btn-primary">已读</button>
+                </div>
+            </div>
         </div>
     </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <footer class="py-5">
+        <div class="row">
+            <div class="col-6 col-md-2 mb-3">
+                <h5>部分</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">家</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">特征</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">定价</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)"
+                                                 class="nav-link p-0 text-muted">常见问题</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">大约</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-2 mb-3">
+                <h5>部分</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">家</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">特征</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">定价</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)"
+                                                 class="nav-link p-0 text-muted">常见问题</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">大约</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-2 mb-3">
+                <h5>部分</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">家</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">特征</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">定价</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)"
+                                                 class="nav-link p-0 text-muted">常见问题</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="javascript:void(0)" class="nav-link p-0 text-muted">大约</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-5 offset-md-1 mb-3">
+                <form>
+                    <h5>订阅我们的时事通讯</h5>
+                    <p>每月摘要，了解我们的新消息和令人兴奋的内容。</p>
+                    <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                        <label for="newsletter1" class="visually-hidden">电子邮件地址</label>
+                        <input id="newsletter1" type="text" class="form-control" placeholder="电子邮件地址">
+                        <button class="btn btn-primary" type="button">订阅</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+            <p>© 2023 AnyBox保留所有权利。</p>
+            <ul class="list-unstyled d-flex">
+                <li class="ms-3"><a class="link-dark" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#twitter"></use>
+                    </svg>
+                </a></li>
+                <li class="ms-3"><a class="link-dark" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#instagram"></use>
+                    </svg>
+                </a></li>
+                <li class="ms-3"><a class="link-dark" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#facebook"></use>
+                    </svg>
+                </a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <div class="mask" v-show="showLoginForm||showRegisterForm"
+         @click="showLoginForm=false;showRegisterForm=false"></div>
+    <form v-show="showLoginForm" class="loginForm">
+        <div class="form-center">
+            <img class="mb-4" src="own/image/box.png" width="88" height="88">
+            <h1 class="h3 mb-3 fw-normal">请登录</h1>
+            <span class="errorMsg">{{ errorMsg }}</span>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control w-80p" ref="loginName" placeholder="手机号/邮箱/QQ号">
+            <label for="floatingInput">手机号/邮箱/QQ号</label><br/>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control w-80p" ref="password" placeholder="密码">
+            <label for="floatingPassword">密码</label><br/>
+        </div>
+        <div class="form-center-20">
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me">记住我</label>
+            </div>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"
+                                               @click="showRegisterForm=true;showLoginForm=false">还没账号？点我注册</a><br/><br/><br/><br/>
+        <div class="form-center-50">
+            <button class="w-80p btn btn-lg btn-primary" type="submit" @click="login">登录</button>
+            <p class="mt-5 mb-3 text-muted">© 2023 AnyBox</p>
+        </div>
+    </form>
+    <form v-show="showRegisterForm" class="registerForm">
+        <div class="form-center">
+            <img class="mb-4" src="own/image/box.png" width="88" height="88">
+            <h1 class="h3 mb-3 fw-normal">请注册</h1>
+            <span class="errorMsg">{{ errorMsg }}</span>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control w-80p" ref="registerName" placeholder="手机号/邮箱/QQ号">
+            <label for="floatingInput">手机号/邮箱/QQ号</label><br/>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control  w-80p" ref="registerPassword" placeholder="密码">
+            <label for="floatingPassword">密码</label><br/>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control  w-80p" ref="confirmPassword" placeholder="确认密码">
+            <label for="floatingPassword">确认密码</label><br/>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"
+                                               @click="showLoginForm=true;showRegisterForm=false">已有账号？点我登录</a><br/><br/><br/><br/>
+        <div class="form-center-50">
+            <button class="w-80p btn btn-lg btn-primary" type="submit" @click="register">注册</button>
+            <p class="mt-5 mb-3 text-muted">© 2023 AnyBox</p>
+        </div>
+    </form>
 </div>
-<script src="vue/vue.js"></script>
 <script>
-    module.exports ={
+    new Vue({
+        el: '#index',
         data() {
             return {
-                selectedTab: 'tab1'
+                tabId: 1,
+                avatar: '',
+                showLoginForm: false,
+                showDropdown: false,
+                showRegisterForm: false,
+                errorMsg: ''
             };
+        },
+        methods: {
+            getCookie(name) {
+                let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+                if (arr === document.cookie.match(reg)) {
+                    return decodeURIComponent(arr[2]);
+                } else {
+                    return null;
+                }
+            },
+            checkLogin() {
+                if (Boolean(this.getCookie('userToken'))) {
+                    // 如果已经登录，则显示用户选项菜单
+                    this.showDropdown = true;
+                } else {
+                    // 如果未登录，则显示登录弹窗
+                    this.showLoginForm = true;
+                }
+            },
+            async login() {
+                this.errorMsg = '';
+                const emailRegexp = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/; // 邮箱规则
+                const phoneRegexp = /^(?!([0-9])\1+$)(?!123456|234567|345678|456789|56789\d|6789\d{2}|789\d{3}|89\d{4}|9\d{5})(?!(123|234|345|456|567|678|789)\d{8})1\d{10}$/;// 手机号规则
+                const qqRegexp = /^[1-9][0-9]{4,}$/; // QQ号规则
+                const loginName = this.$refs.loginName.value;
+                const password = this.$refs.password.value;
+                if (!loginName || !password) {
+                    this.errorMsg = '账号与密码不能为空！';
+                    return false;
+                } else if (password.length < 6) {
+                    this.errorMsg = '密码长度至少为6位！';
+                    return false;
+                } else if (!emailRegexp.test(loginName) && !phoneRegexp.test(loginName) && !qqRegexp.test(loginName)) {
+                    this.errorMsg = '请输入正确的手机号/邮箱/QQ号';
+                    return false;
+                } else {
+                    try {
+                        const response = await axios.post('/login', {
+                            "loginName": loginName,
+                            "password": password
+                        });
+                        if (response && response.status >= 200 && response.status < 300) {
+                            const user = response.data;
+                            if (user.userToken && user.userToken.length > 6) {
+                                this.avatar = user.avatar;
+                                const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();// 设置cookie过期时间为一个月
+                                // 将token作为名字添加到cookie字符串中
+                                document.cookie = `userToken=${user.userToken}; expires=${expires}; path=/`;
+                                sessionStorage.clear();
+                                sessionStorage.setItem('userInfo', JSON.stringify(user));
+                                // 将 userStr 作为参数传递到 URL 中
+                                window.location.href = '/fireworks.html';
+                            } else {
+                                this.errorMsg = '该账户不存在！';
+                                return false;
+                            }
+                            return true;
+                        } else {
+                            this.errorMsg = `网络通信异常，状态码: ${response.status}!`;
+                            return false;
+                        }
+                    } catch (error) {
+                        // 请求错误或登录失败，设置错误信息
+                        console.error(error);
+                        this.errorMsg = error.response.data.msg || '登录失败！';
+                        return false;
+                    }
+                }
+            },
+            async logout() {
+                this.avatar = '';
+                document.cookie = '';
+            },
+            async register() {
+                this.errorMsg = '';
+                const emailRegexp = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/; // 邮箱规则
+                const phoneRegexp = /^(?!([0-9])\1+$)(?!123456|234567|345678|456789|56789\d|6789\d{2}|789\d{3}|89\d{4}|9\d{5})(?!(123|234|345|456|567|678|789)\d{8})1\d{10}$/;// 手机号规则
+                const qqRegexp = /^[1-9][0-9]{4,}$/; // QQ号规则
+                const registerName = this.$refs.registerName.value;
+                const registerPassword = this.$refs.registerPassword.value;
+                const confirmPassword = this.$refs.confirmPassword.value;
+                if (!registerName || !registerPassword) {
+                    this.errorMsg = '账号与密码不能为空！';
+                    return false;
+                } else if (confirmPassword != confirmPassword) {
+                    this.errorMsg = '确认密码与密码不一致！';
+                    return false;
+                } else if ((emailRegexp.test(registerName) || phoneRegexp.test(registerName) || qqRegexp.test(registerName)) && registerPassword.length >= 6) {
+                    try {
+                        const response = await axios.post('/redister', {
+                            "registerName": registerName,
+                            "registerPassword": registerPassword
+                        });
+                        if (response.status >= 200 && response.status < 300) {
+                            // 登录成功，做相应处理
+                            const user = response.data;
+                            const userStr = encodeURIComponent(JSON.stringify(user));
+                            // 将 userStr 作为参数传递到 URL 中
+                            window.location.href = '/fireworks.html?user=' + userStr;
+                            return true;
+                        } else {
+                            this.errorMsg = `HTTP error! status: ${response.status}`;
+                            return false;
+                        }
+                    } catch (error) {
+                        // 请求错误或登录失败，设置错误信息
+                        this.errorMsg = error.response.data || '登录失败！';
+                        return false;
+                    }
+                } else {
+                    this.errorMsg = '请输入正确的手机号/邮箱/QQ号';
+                    return false;
+                }
+            }
         }
-    };
+    });
 </script>
+
 </body>
 </html>
