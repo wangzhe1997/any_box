@@ -320,8 +320,8 @@
                                 const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();// 设置cookie过期时间为一个月
                                 // 将token作为名字添加到cookie字符串中
                                 document.cookie = `userToken=${user.userToken}; expires=${expires}; path=/`;
-                                sessionStorage.clear();
-                                sessionStorage.setItem('userInfo', JSON.stringify(user));
+                                localStorage.clear();
+                                localStorage.setItem('userInfo', JSON.stringify(user));
                                 // 将 userStr 作为参数传递到 URL 中
                                 window.location.href = '/fireworks.html';
                             } else {

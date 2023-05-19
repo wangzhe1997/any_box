@@ -34,7 +34,7 @@
                 errorMsg: ''
             }
         }, mounted() {
-            const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             if (userInfo) {
                 this.name = userInfo.name;
                 this.avatar = 'data:image/png;base64,' + userInfo.avatar;
